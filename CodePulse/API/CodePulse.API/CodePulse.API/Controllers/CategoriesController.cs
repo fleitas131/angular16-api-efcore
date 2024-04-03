@@ -1,6 +1,7 @@
 ﻿using CodePulse.API.Data;
 using CodePulse.API.Models.Domain;
 using CodePulse.API.Models.DTO;
+using CodePulse.API.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,11 @@ namespace CodePulse.API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly AppDbContext dbContext;
-        public CategoriesController(AppDbContext dbContext)
+        private readonly ICategoryRepository categoryRepository;
+
+        public CategoriesController(ICategoryRepository categoryRepository)
         {
-            this.dbContext = dbContext;
+            this.categoryRepository = categoryRepository;
         }
 
         //
@@ -27,9 +29,7 @@ namespace CodePulse.API.Controllers
                 UrlHandle = request.UrlHandle
             };
 
-            await dbContext.Categories.AddAsync(category);
-
-            await dbContext.SaveChangesAsync();
+            await categoryRepository.CreateAsync(category);
 
             var response = new CategoryDto
             {
