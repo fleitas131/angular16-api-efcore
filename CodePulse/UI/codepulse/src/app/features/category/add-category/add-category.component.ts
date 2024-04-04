@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AddCategoryRequest } from '../models/add-category-request.model';
 
 @Component({
   selector: 'app-add-category',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AddCategoryComponent {
 
-  model: AddCategoryrequest;
+  model: AddCategoryRequest;
 
   constructor() {
     this.model = {
